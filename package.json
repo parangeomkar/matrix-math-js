@@ -1,0 +1,24 @@
+{
+  "name": "vector-math-js",
+  "version": "1.0.0",
+  "description": "Vector math library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parangeomkar/vector-math-js.git"
+  },
+  "keywords": [
+    "Matrix",
+    "Dot",
+    "product"
+  ],
+  "author": "Omkar Parange",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parangeomkar/vector-math-js/issues"
+  },
+  "homepage": "https://github.com/parangeomkar/vector-math-js#readme"
+}
