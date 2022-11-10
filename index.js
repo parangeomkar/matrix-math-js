@@ -1,9 +1,11 @@
-const { dot, add, sub } = require("./src/operators");
+const { dot, add, sub, prod, pow } = require("./src/operators");
 const Matrix = require("./src/matrix");
 
 module.exports = {
     Matrix,
     dot,
     add,
-    sub
+    sub,
+    prod,
+    pow
 }
