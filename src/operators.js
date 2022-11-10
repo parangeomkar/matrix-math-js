@@ -112,7 +112,6 @@ module.exports.add = (A, B) => {
         throwError("Summation with null matrix is attempted!");
     }
 
-    // iterate rows of A and multiply with columns of B
     for (let i = 0; i < B.dim[0]; i++) {
         for (let j = 0; j < B.dim[1]; j++) {
             if (isVectorSum) {
@@ -171,7 +170,6 @@ module.exports.sub = (A, B) => {
         throwError("Subtraction with null matrix is attempted!");
     }
 
-    // iterate rows of A and multiply with columns of B
     for (let i = 0; i < B.dim[0]; i++) {
         for (let j = 0; j < B.dim[1]; j++) {
             if (isVectorSum) {
@@ -183,4 +181,32 @@ module.exports.sub = (A, B) => {
         }
     }
     return _subMat;
+}
+
+
+
+
+/**
+ * 
+ * @param {*} A Matrix 1 of any size
+ * @param {*} B Matrix 2 of any size
+ * @returns returns difference between A and B
+ */
+module.exports.pow = (A, exp) => {
+    // temp matrix
+    let _powMat = new Matrix();
+
+    // check if any matrix is null
+    if (A.dim[0] == 0) {
+        throwError("Calculation of null matrix power is attempted!");
+    } else {
+        _powMat.zeros(A.dim[0], A.dim[1]);
+    }
+
+    for (let i = 0; i < A.dim[0]; i++) {
+        for (let j = 0; j < A.dim[1]; j++) {
+            _powMat.val[i][j] = Math.pow(A.get(i, j), exp);
+        }
+    }
+    return _powMat;
 }
