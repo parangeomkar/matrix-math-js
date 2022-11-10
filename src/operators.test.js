@@ -1,4 +1,4 @@
-const { dot, add, sub, pow } = require("./operators");
+const { dot, add, sub, pow, prod } = require("./operators");
 const Matrix = require("./matrix");
 
 test("Tests dot product of 1x1 and 1x1 matrix", () => {
@@ -406,7 +406,7 @@ test("Tests element wise power calculation of of 1x1 matrix", () => {
     let A = new Matrix(4),
         B = new Matrix(64),
         C = pow(A, 3);
-        
+
     expect(C).toEqual(B);
 });
 
@@ -449,3 +449,64 @@ test("Tests element wise power calculation of of 1x3 and null matrix", () => {
 
     expect(() => pow(A, 2)).toThrow("Calculation of null matrix power is attempted!");
 });
+
+
+
+/////////////////
+
+
+test("Tests element wise product of 1x1 and 1x1 matrix", () => {
+    let A = new Matrix(4),
+        B = new Matrix(7),
+        C = new Matrix(28),
+        D = prod(A, B);
+
+    expect(D).toEqual(C);
+});
+
+
+test("Tests element wise product of 1x2 and 1x2 matrix", () => {
+    let A = new Matrix([3, -1]),
+        B = new Matrix([2, 4]),
+        C = new Matrix([6, -4]),
+        D = prod(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests element wise product of 2x1 and 2x1 matrix", () => {
+    let A = new Matrix([[0], [2]]),
+        B = new Matrix([[0], [4]]),
+        C = new Matrix([[0], [8]]),
+        D = prod(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests element wise product of 2x2 and 2x2 matrix", () => {
+    let A = new Matrix([[1, 2], [3, 4]]),
+        B = new Matrix([[1, 2], [-3, -4]]),
+        C = new Matrix([[1, 4], [-9, -16]]),
+        D = prod(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests element wise product of 3x3 and null matrix", () => {
+    let A = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
+        B = new Matrix();
+
+    expect(() => prod(A, B)).toThrow("Product with null matrix is attempted!");
+});
+
+
+
+test("Tests element wise product of 3x3 and 2x2 matrix", () => {
+    let A = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
+        B = new Matrix([[1, 2], [4, 5]]);
+
+    expect(() => prod(A, B)).toThrow("Element wise product of unequal dimension matrices is attempted!");
+});
+
+
+

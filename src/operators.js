@@ -188,9 +188,9 @@ module.exports.sub = (A, B) => {
 
 /**
  * 
- * @param {*} A Matrix 1 of any size
- * @param {*} B Matrix 2 of any size
- * @returns returns difference between A and B
+ * @param {*} A Matrix of any size
+ * @param {*} exp exponent
+ * @returns returns element wise power of A with power exp
  */
 module.exports.pow = (A, exp) => {
     // temp matrix
@@ -210,3 +210,38 @@ module.exports.pow = (A, exp) => {
     }
     return _powMat;
 }
+
+
+/**
+ * 
+ * @param {*} A Matrix 1 of any size
+ * @param {*} B Matrix 2 of any size
+ * @returns returns element wise product of A and B
+ */
+module.exports.prod = (A, B) => {
+    // temp matrix
+    let _prodMat = new Matrix();
+
+    if (A.dim[0] == 0 || B.dim[0] == 0) {
+        throwError("Product with null matrix is attempted!");
+    }
+
+    // check if any matrix is null
+    if (A.dim[0] == B.dim[0] && A.dim[1] == B.dim[1]) {
+
+        // initialize zero matrix of size of A
+        _prodMat.zeros(A.dim[0], A.dim[1]);
+
+    } else {
+        // throw error if dimensions of two matrices do not match
+        throwError("Element wise product of unequal dimension matrices is attempted!");
+    }
+
+    for (let i = 0; i < B.dim[0]; i++) {
+        for (let j = 0; j < B.dim[1]; j++) {
+            _prodMat.val[i][j] = A.get(i, j) * B.get(i, j);
+        }
+    }
+    return _prodMat;
+}
+
