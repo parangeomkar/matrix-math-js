@@ -1,5 +1,5 @@
-const { dot, add } = require("./math.js.js");
-const Matrix = require("./matrix.js");
+const { dot, add, sub } = require("./operators");
+const Matrix = require("./matrix");
 
 test("Tests dot product of 1x1 and 1x1 arrays", () => {
     let A = new Matrix(4),
@@ -262,5 +262,135 @@ test("Tests addition of 1x3 and 3x1 matrix", () => {
         B = new Matrix([[1], [2], [3]]);
 
     expect(() => add(A, B)).toThrow("Summation with invalid matrix dimensions is attempted!");
+});
+
+
+
+
+
+
+///////////////////////
+
+
+
+
+
+
+
+test("Tests subtraction of 1x1 and 1x1 arrays", () => {
+    let A = new Matrix(4),
+        B = new Matrix(7),
+        C = new Matrix(-3),
+        D = sub(A, B);
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 1x1 and 1x2 arrays", () => {
+    let A = new Matrix(2),
+        B = new Matrix([5, 6]),
+        C = new Matrix([[-3, -4]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 1x1 and 2x1 arrays", () => {
+    let A = new Matrix(4),
+        B = new Matrix([[5], [6]]),
+        C = new Matrix([[-1], [-2]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 1x1 and 2x2 arrays", () => {
+    let A = new Matrix(4),
+        B = new Matrix([[5, 6], [7, 8]]),
+        C = new Matrix([[-1, -2], [-3, -4]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+
+test("Tests subtraction of 1x2 and 1x1 arrays", () => {
+    let A = new Matrix([5, 6]),
+        B = new Matrix(2),
+        C = new Matrix([[3, 4]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 2x1 and 1x1 arrays", () => {
+    let A = new Matrix([[5], [6]]),
+        B = new Matrix(4),
+        C = new Matrix([[1], [2]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 2x2 and 1x1 arrays", () => {
+    let A = new Matrix([[5, 6], [7, 8]]),
+        B = new Matrix(4),
+        C = new Matrix([[1, 2], [3, 4]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+
+test("Tests subtraction of 1x2 and 1x2 arrays", () => {
+    let A = new Matrix([[1, 2]]),
+        B = new Matrix([5, 6]),
+        C = new Matrix([[-4, -4]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 2x1 and 2x1 arrays", () => {
+    let A = new Matrix([[1], [3]]),
+        B = new Matrix([[5], [6]]),
+        C = new Matrix([[-4], [-3]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+test("Tests subtraction of 2x2 and 2x2 arrays", () => {
+    let A = new Matrix([[1, 7], [9, 4]]),
+        B = new Matrix([[23, 6], [7, 8]]),
+        C = new Matrix([[-22, 1], [2, -4]]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+
+test("Tests subtraction of 1x3 and 1x2 arrays", () => {
+    let A = new Matrix([[1, 2, 3]]),
+        B = new Matrix([[7, 2, 5]]),
+        C = new Matrix([-6, 0, -2]),
+        D = sub(A, B);
+
+    expect(D).toEqual(C);
+});
+
+
+test("Tests subtraction of 1x3 and null matrix", () => {
+    let A = new Matrix([[1, 2, 3]]),
+        B = new Matrix();
+
+    expect(() => sub(A, B)).toThrow("Summation with null matrix is attempted!");
+});
+
+
+test("Tests subtraction of 1x3 and 3x1 matrix", () => {
+    let A = new Matrix([[1, 2, 3]]),
+        B = new Matrix([[1], [2], [3]]);
+
+    expect(() => sub(A, B)).toThrow("Summation with invalid matrix dimensions is attempted!");
 });
 

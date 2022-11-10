@@ -124,3 +124,63 @@ module.exports.add = (A, B) => {
     }
     return _sumMat;
 }
+
+
+/**
+ * 
+ * @param {*} A Matrix 1 of any size
+ * @param {*} B Matrix 2 of any size
+ * @returns returns difference between A and B
+ */
+module.exports.sub = (A, B) => {
+    // temp matrix
+    let _subMat = new Matrix();
+    let reversed = 1;
+    let isVectorSum = 0;
+
+    // check if any matrix is null
+    if (A.dim[0] >= 1 && A.dim[1] >= 1 && B.dim[0] >= 1 && B.dim[1] >= 1) {
+
+        if (A.dim[0] == 1 && A.dim[1] == 1) {
+            // initialize zero matrix of A->rows and A->columns
+            _subMat.zeros(B.dim[0], B.dim[1]);
+
+        } else if (B.dim[0] == 1 && B.dim[1] == 1) {
+            // initialize zero matrix of B->rows and B->columns
+            _subMat.zeros(A.dim[0], A.dim[1]);
+
+            // swap A and B to allow sequence of scaler param first in multiplication
+            let _mat = B;
+            B = A;
+            A = _mat;
+            reversed = -1;
+
+        } else {
+            // dimensions do not match if columns of first matrix do not match rows of second matrix,
+            if (A.dim[0] != B.dim[0] && A.dim[1] != B.dim[1]) {
+                throwError("Subtraction with invalid matrix dimensions is attempted!");
+            } else {
+                // vector product
+                isVectorSum = 1;
+
+                // initialize zero matrix of A->rows and B->columns
+                _subMat.zeros(A.dim[0], B.dim[1]);
+            }
+        }
+    } else {
+        throwError("Subtraction with null matrix is attempted!");
+    }
+
+    // iterate rows of A and multiply with columns of B
+    for (let i = 0; i < B.dim[0]; i++) {
+        for (let j = 0; j < B.dim[1]; j++) {
+            if (isVectorSum) {
+                _subMat.val[i][j] = A.get(i, j) - B.get(i, j);
+            } else {
+                // reverse = 1  gives (A - B), reverse = -1 gives (B - A)
+                _subMat.val[i][j] = (reversed * A.get(0, 0)) - (reversed * B.get(i, j));
+            }
+        }
+    }
+    return _subMat;
+}
