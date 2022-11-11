@@ -2,10 +2,10 @@ const { throwError } = require("./error_handler");
 
 class Matrix {
     constructor(X) {
-        let _mat = this.toMatrix(X);
+        let { val, dim } = this.toMatrix(X);
 
-        this.val = _mat.val;
-        this.dim = _mat.dim;
+        this.val = val;
+        this.dim = dim;
     }
 
     /**
@@ -29,23 +29,26 @@ class Matrix {
     }
 
     /**
-     * transposes MAT property
+     * transposes the matrix
+     * @returns transposed object
      */
     transpose() {
         let _mat = [[]];
 
-        for (let i = 0; i < this.val.length; i++) {
-            let y = this.val[i];
-            for (let j = 0; j < y.length; j++) {
+        // get rows
+        for (let [i, row] of this.val.entries()) {
+            // get columns
+            for (let [j, col] of row.entries()) {
                 if (!_mat[j]) {
                     _mat[j] = [];
                 }
-                _mat[j][i] = y[j];
+
+                _mat[j][i] = col;
             }
         }
 
         this.val = _mat;
-        this.dim = [this.dim[1], this.dim[0]];
+        this.dim.reverse();
         return this;
     }
 
@@ -78,11 +81,18 @@ class Matrix {
      */
     toMatrix(X) {
         let _mat = {}
-        if (X != undefined || !isNaN(X)) {
+
+        // if X is not defined, create a null matrix
+        if (X) {
+            // Check if X is a vector or a scalar value
             if (Array.isArray(X)) {
+
+                // check if elements in each row i.e. # of columns match
                 if (!this.validateDim(X)) {
                     throwError("Number of columns do not match for all rows!");
                 }
+
+                // check if X has more than 1 dimensions
                 if (Array.isArray(X[0])) {
                     let rows = X.length;
                     let cols = X[0].length;
@@ -96,10 +106,12 @@ class Matrix {
                     _mat.dim = [1, cols];
                 }
             } else {
+                // scalar matrix
                 _mat.val = [[X]];
                 _mat.dim = [1, 1];
             }
         } else {
+            // set a null matrix
             _mat.val = [[]];
             _mat.dim = [0, 0];
         }
@@ -116,7 +128,7 @@ class Matrix {
 
         // Check if number of elements in all matrix columns is same
         for (let x of X) {
-            if (numElem != null && numElem != x.length) {
+            if (numElem && numElem != x.length) {
                 return false;
             } else {
                 numElem = x.length;
