@@ -1,7 +1,7 @@
 {
-  "name": "vector-math-js",
+  "name": "matrix-math",
   "version": "1.0.0",
-  "description": "Vector math library",
+  "description": "matrix math library",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -200,7 +200,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/parangeomkar/vector-math-js.git"
+    "url": "git+https://github.com/parangeomkar/matrix-math-js.git"
   },
   "keywords": [
     "Matrix",
@@ -208,7 +208,7 @@
     "product"
   ],
   "bugs": {
-    "url": "https://github.com/parangeomkar/vector-math-js/issues"
+    "url": "https://github.com/parangeomkar/matrix-math-js/issues"
   },
-  "homepage": "https://github.com/parangeomkar/vector-math-js#readme"
+  "homepage": "https://github.com/parangeomkar/matrix-math-js#readme"
 }
