@@ -55,11 +55,13 @@ module.exports.dot = (A, B) => {
 
             // iterate rows of B
             for (let k = 0; k < B.dim[0]; k++) {
-
+                let temp;
                 if (isVectorProduct) {
-                    _dotMat.val[i][j] += (A.get(i, k) * B.get(k, j));
+                    temp = _dotMat.get(i, j) + (A.get(i, k) * B.get(k, j));
+                    _dotMat.set(i, j, temp);
                 } else {
-                    _dotMat.val[k][j] = (A.get(i, 0) * B.get(k, j));
+                    temp = (A.get(i, 0) * B.get(k, j));
+                    _dotMat.set(k, j, temp);
                 }
             }
 
@@ -114,10 +116,13 @@ module.exports.add = (A, B) => {
 
     for (let i = 0; i < B.dim[0]; i++) {
         for (let j = 0; j < B.dim[1]; j++) {
+            let temp;
             if (isVectorSum) {
-                _sumMat.val[i][j] = A.get(i, j) + B.get(i, j);
+                temp = A.get(i, j) + B.get(i, j);
+                _sumMat.set(i, j, temp);
             } else {
-                _sumMat.val[i][j] = A.get(0, 0) + B.get(i, j);
+                temp = A.get(0, 0) + B.get(i, j);
+                _sumMat.set(i, j, temp);
             }
         }
     }
@@ -172,11 +177,14 @@ module.exports.sub = (A, B) => {
 
     for (let i = 0; i < B.dim[0]; i++) {
         for (let j = 0; j < B.dim[1]; j++) {
+            let temp;
             if (isVectorSum) {
-                _subMat.val[i][j] = A.get(i, j) - B.get(i, j);
+                temp = A.get(i, j) - B.get(i, j);
+                _subMat.set(i, j, temp);
             } else {
                 // reverse = 1  gives (A - B), reverse = -1 gives (B - A)
-                _subMat.val[i][j] = (reversed * A.get(0, 0)) - (reversed * B.get(i, j));
+                temp = (reversed * A.get(0, 0)) - (reversed * B.get(i, j));
+                _subMat.set(i, j, temp);
             }
         }
     }
@@ -205,7 +213,8 @@ module.exports.pow = (A, exp) => {
 
     for (let i = 0; i < A.dim[0]; i++) {
         for (let j = 0; j < A.dim[1]; j++) {
-            _powMat.val[i][j] = Math.pow(A.get(i, j), exp);
+            let temp = Math.pow(A.get(i, j), exp);
+            _powMat.set(i, j, temp)
         }
     }
     return _powMat;
@@ -239,7 +248,8 @@ module.exports.prod = (A, B) => {
 
     for (let i = 0; i < B.dim[0]; i++) {
         for (let j = 0; j < B.dim[1]; j++) {
-            _prodMat.val[i][j] = A.get(i, j) * B.get(i, j);
+            let temp = A.get(i, j) * B.get(i, j);
+            _prodMat.set(i, j, temp)
         }
     }
     return _prodMat;

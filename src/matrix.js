@@ -19,6 +19,16 @@ class Matrix {
     }
 
     /**
+     * 
+     * @param {*} i row number - starts from 0
+     * @param {*} j col number - starts from 0
+     * @brief sets matrix element at i'th row and j'th column
+     */
+    set(i, j, value) {
+        this.val[i][j] = value;
+    }
+
+    /**
      * transposes MAT property
      */
     transpose() {
