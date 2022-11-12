@@ -13,19 +13,19 @@ module.exports.dot = (A, B) => {
     let isVectorProduct = 0;
 
     // check if any matrix is null
-    if (A.dim[0] > 0 && B.dim[0] > 0) {
+    if (A.size(0) > 0 && B.size(0) > 0) {
 
         // check if A is a scalar
-        if (A.dim[0] == 1 && A.dim[1] == 1) {
+        if (A.size(0) == 1 && A.size(1) == 1) {
 
             // initialize zero matrix of A->rows and A->columns
-            _dotMat.zeros(B.dim[0], B.dim[1]);
+            _dotMat.zeros(B.size(0), B.size(1));
 
         // check if B is a scalar
-        } else if (B.dim[0] == 1 && B.dim[1] == 1) {
+        } else if (B.size(0) == 1 && B.size(1) == 1) {
             
             // initialize zero matrix of B->rows and B->columns
-            _dotMat.zeros(A.dim[0], A.dim[1]);
+            _dotMat.zeros(A.size(0), A.size(1));
 
             // swap A and B to allow sequence of scaler param first in multiplication
             let _mat = B;
@@ -37,12 +37,12 @@ module.exports.dot = (A, B) => {
             isVectorProduct = 1;
 
             // dimensions do not match if columns of first matrix do not match rows of second matrix,
-            if (A.dim[1] != B.dim[0]) {
+            if (A.size(1) != B.size(0)) {
                 throwError("Dot product with invalid matrix dimensions is attempted!");
 
             } else {
                 // initialize zero matrix of A->rows and B->columns
-                _dotMat.zeros(A.dim[0], B.dim[1]);
+                _dotMat.zeros(A.size(0), B.size(1));
             }
         }
     } else {
@@ -51,13 +51,13 @@ module.exports.dot = (A, B) => {
 
     // Following logic has O(n^3) time complexity
     // iterate rows of A
-    for (let i = 0; i < A.dim[0]; i++) {
+    for (let i = 0; i < A.size(0); i++) {
 
         // iterate columns of B
-        for (let j = 0; j < B.dim[1]; j++) {
+        for (let j = 0; j < B.size(1); j++) {
 
             // iterate rows of B
-            for (let k = 0; k < B.dim[0]; k++) {
+            for (let k = 0; k < B.size(0); k++) {
                 let temp;
 
                 if (isVectorProduct) {
@@ -89,19 +89,19 @@ module.exports.add = (A, B) => {
     let isVectorSum = 0;
 
     // check if any matrix is null
-    if (A.dim[0] > 0 && B.dim[0] > 0) {
+    if (A.size(0) > 0 && B.size(0) > 0) {
 
         // check if A is a scalar
-        if (A.dim[0] == 1 && A.dim[1] == 1) {
+        if (A.size(0) == 1 && A.size(1) == 1) {
 
             // initialize zero matrix of A->rows and A->columns
-            _sumMat.zeros(B.dim[0], B.dim[1]);
+            _sumMat.zeros(B.size(0), B.size(1));
 
             // check if B is a scalar
-        } else if (B.dim[0] == 1 && B.dim[1] == 1) {
+        } else if (B.size(0) == 1 && B.size(1) == 1) {
 
             // initialize zero matrix of B->rows and B->columns
-            _sumMat.zeros(A.dim[0], A.dim[1]);
+            _sumMat.zeros(A.size(0), A.size(1));
 
             // swap A and B to allow sequence of scaler param first in multiplication
             let _mat = B;
@@ -110,7 +110,7 @@ module.exports.add = (A, B) => {
 
         } else {
             // dimensions do not match if columns of first matrix do not match rows of second matrix,
-            if (A.dim[0] != B.dim[0] && A.dim[1] != B.dim[1]) {
+            if (A.size(0) != B.size(0) && A.size(1) != B.size(1)) {
 
                 throwError("Summation with invalid matrix dimensions is attempted!");
 
@@ -119,7 +119,7 @@ module.exports.add = (A, B) => {
                 isVectorSum = 1;
 
                 // initialize zero matrix of A->rows and B->columns
-                _sumMat.zeros(A.dim[0], B.dim[1]);
+                _sumMat.zeros(A.size(0), B.size(1));
             }
         }
     } else {
@@ -127,10 +127,10 @@ module.exports.add = (A, B) => {
     }
 
     // iterate rows of B
-    for (let i = 0; i < B.dim[0]; i++) {
+    for (let i = 0; i < B.size(0); i++) {
 
         // iterate columns of B
-        for (let j = 0; j < B.dim[1]; j++) {
+        for (let j = 0; j < B.size(1); j++) {
             let temp;
 
             if (isVectorSum) {
@@ -162,19 +162,19 @@ module.exports.sub = (A, B) => {
     let isVectorDiff = 0;
 
     // check if any matrix is null
-    if (A.dim[0] > 0 && B.dim[0] > 0) {
+    if (A.size(0) > 0 && B.size(0) > 0) {
 
         // check if A is a scalar
-        if (A.dim[0] == 1 && A.dim[1] == 1) {
+        if (A.size(0) == 1 && A.size(1) == 1) {
 
             // initialize zero matrix of A->rows and A->columns
-            _subMat.zeros(B.dim[0], B.dim[1]);
+            _subMat.zeros(B.size(0), B.size(1));
 
             // check if B is a scalar
-        } else if (B.dim[0] == 1 && B.dim[1] == 1) {
+        } else if (B.size(0) == 1 && B.size(1) == 1) {
 
             // initialize zero matrix of B->rows and B->columns
-            _subMat.zeros(A.dim[0], A.dim[1]);
+            _subMat.zeros(A.size(0), A.size(1));
 
             // swap A and B to allow sequence of scaler param first in multiplication
             let _mat = B;
@@ -185,7 +185,7 @@ module.exports.sub = (A, B) => {
         } else {
 
             // dimensions do not match if columns of first matrix do not match rows of second matrix,
-            if (A.dim[0] != B.dim[0] && A.dim[1] != B.dim[1]) {
+            if (A.size(0) != B.size(0) && A.size(1) != B.size(1)) {
                 throwError("Subtraction with invalid matrix dimensions is attempted!");
 
             } else {
@@ -193,7 +193,7 @@ module.exports.sub = (A, B) => {
                 isVectorDiff = 1;
 
                 // initialize zero matrix of A->rows and B->columns
-                _subMat.zeros(A.dim[0], B.dim[1]);
+                _subMat.zeros(A.size(0), B.size(1));
             }
         }
     } else {
@@ -201,10 +201,10 @@ module.exports.sub = (A, B) => {
     }
 
     // iterate rows of B
-    for (let i = 0; i < B.dim[0]; i++) {
+    for (let i = 0; i < B.size(0); i++) {
 
         // iterate columns of B
-        for (let j = 0; j < B.dim[1]; j++) {
+        for (let j = 0; j < B.size(1); j++) {
             let temp;
 
             if (isVectorDiff) {
@@ -237,18 +237,18 @@ module.exports.pow = (A, exp) => {
     let _powMat = new Matrix();
 
     // check if any matrix is null
-    if (A.dim[0] == 0) {
+    if (A.size(0) == 0) {
         throwError("Calculation of null matrix power is attempted!");
         
     } else {
-        _powMat.zeros(A.dim[0], A.dim[1]);
+        _powMat.zeros(A.size(0), A.size(1));
     }
 
     // iterate rows of A
-    for (let i = 0; i < A.dim[0]; i++) {
+    for (let i = 0; i < A.size(0); i++) {
 
         // iterate columns of A
-        for (let j = 0; j < A.dim[1]; j++) {
+        for (let j = 0; j < A.size(1); j++) {
 
             // compute element wise power
             let temp = Math.pow(A.get(i, j), exp);
@@ -269,15 +269,15 @@ module.exports.prod = (A, B) => {
     // temp matrix
     let _prodMat = new Matrix();
 
-    if (A.dim[0] == 0 || B.dim[0] == 0) {
+    if (A.size(0) == 0 || B.size(0) == 0) {
         throwError("Product with null matrix is attempted!");
     }
 
     // check if dimensions of both matrices match
-    if (A.dim[0] == B.dim[0] && A.dim[1] == B.dim[1]) {
+    if (A.size(0) == B.size(0) && A.size(1) == B.size(1)) {
 
         // initialize zero matrix of size of A
-        _prodMat.zeros(A.dim[0], A.dim[1]);
+        _prodMat.zeros(A.size(0), A.size(1));
 
     } else {
         // throw error if dimensions of two matrices do not match
@@ -285,10 +285,10 @@ module.exports.prod = (A, B) => {
     }
 
     // iterate rows of A
-    for (let i = 0; i < A.dim[0]; i++) {
+    for (let i = 0; i < A.size(0); i++) {
 
         // iterate columns of A
-        for (let j = 0; j < A.dim[1]; j++) {
+        for (let j = 0; j < A.size(1); j++) {
 
             // compute element wise product
             let temp = A.get(i, j) * B.get(i, j);

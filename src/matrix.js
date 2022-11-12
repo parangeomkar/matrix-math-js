@@ -28,6 +28,20 @@ class Matrix {
         this.val[i][j] = value;
     }
 
+/**
+ * 
+ * @param {*} dim matrix dimension parameter 0 = # of rows, 1 = # columns 
+ * @returns if dim is undefined then returns an array of [rows, columns] 
+ *          else either rows or columns depending on value of dim 
+ */
+    size(dim = undefined) {
+        if (dim != undefined) {
+            return dim == 0 ? this.dim[0] : this.dim[1];
+        } else {
+            return this.dim;
+        }
+    }
+
     /**
      * transposes the matrix
      * @returns transposed object

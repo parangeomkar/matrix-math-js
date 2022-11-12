@@ -70,3 +70,24 @@ test("Tests addition of 1x3 and 3x1 matrix", () => {
     expect(() => new Matrix([[1, 2, 3], [4, 5]])).toThrow("Number of columns do not match for all rows!");
 });
 
+
+
+test("Tests size method of a matrix without parameters", () => {
+    let A = new Matrix([[1, 2, 3], [5, 6, 7]]);
+
+    expect(A.size()).toEqual([2, 3]);
+});
+
+
+test("Tests size method of a matrix to get rows", () => {
+    let A = new Matrix([[1, 2, 3], [5, 6, 7]]);
+
+    expect(A.size(0)).toEqual(2);
+});
+
+
+test("Tests size method of a matrix to get columns", () => {
+    let A = new Matrix([[1, 2, 3], [5, 6, 7]]);
+
+    expect(A.size(1)).toEqual(3);
+});
