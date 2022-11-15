@@ -28,12 +28,12 @@ class Matrix {
         this.val[i][j] = value;
     }
 
-/**
- * 
- * @param {*} dim matrix dimension parameter 0 = # of rows, 1 = # columns 
- * @returns if dim is undefined then returns an array of [rows, columns] 
- *          else either rows or columns depending on value of dim 
- */
+    /**
+     * 
+     * @param {*} dim matrix dimension parameter 0 = # of rows, 1 = # columns 
+     * @returns if dim is undefined then returns an array of [rows, columns] 
+     *          else either rows or columns depending on value of dim 
+     */
     size(dim = undefined) {
         if (dim != undefined) {
             return dim == 0 ? this.dim[0] : this.dim[1];
@@ -95,6 +95,9 @@ class Matrix {
      */
     toMatrix(X) {
         let _mat = {}
+
+        // following if statement fails if X == 0 which is a valid input
+        X = X == 0 ? [X] : X;
 
         // if X is not defined, create a null matrix
         if (X) {
