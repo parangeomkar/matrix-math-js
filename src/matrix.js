@@ -49,10 +49,13 @@ class Matrix {
     transpose() {
         let _mat = [[]];
 
-        // get rows
+        // select rows
         for (let [i, row] of this.val.entries()) {
-            // get columns
+            
+            // select columns
             for (let [j, col] of row.entries()) {
+            
+                // check if column array is empty
                 if (!_mat[j]) {
                     _mat[j] = [];
                 }
