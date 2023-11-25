@@ -51,10 +51,10 @@ class Matrix {
 
         // select rows
         for (let [i, row] of this.val.entries()) {
-            
+
             // select columns
             for (let [j, col] of row.entries()) {
-            
+
                 // check if column array is empty
                 if (!_mat[j]) {
                     _mat[j] = [];
@@ -156,6 +156,76 @@ class Matrix {
         }
         return true;
     }
+
+
+
+    /**
+     * 
+     * @param {*} n Size of identity matrix
+     * @returns n x n identity matrix
+     */
+    eye(n) {
+        return Array(n).fill(0).map((_, i) => Array(n).fill(0).map((_, j) => i == j ? 1 : 0));
+    }
+
+
+    /**
+     * 
+     * @param {*} X a square matrix
+     * @returns inverse of the matrix calculated using Gauss Elimination method
+     */
+    inv(M) {
+        // check if M is a square matrix
+        if (M.dim[0] != M.dim[1]) throwError("The matrix is non-invertible!");;
+        
+        // create temporary variables
+        let X = structuredClone(M),
+            I = this.eye(X.length);
+
+        // perform row operations
+        for (let i = 0; i < X.length; i++) {
+            let x_ii = X[i][i];
+
+            // swap rows if diagonal element is 0
+            if (x_ii == 0) {
+                for (let j = i + 1; j < X.length; j++) {
+                    x_ii = X[j][i];
+                    if (x_ii != 0) {
+                        let tempA = X[i],
+                            tempI = I[i];
+                        X[i] = X[j];
+                        I[i] = I[j];
+                        X[j] = tempA;
+                        I[j] = tempI;
+                        break;
+                    }
+                }
+
+                // matrix non-invertible if no other row had non-zero diagonal element
+                if (x_ii == 0) throwError("The matrix is non-invertible!");
+            }
+
+            // scale diagonal element of i'th row equal to 1
+            for (let j = 0; j < X.length; j++) {
+                X[i][j] /= x_ii;
+                I[i][j] /= x_ii;
+            }
+
+            // eliminate off-diagonal elements
+            for (let j = 0; j < X.length; j++) {
+                if (j == i) continue;
+
+                let x_ji = X[j][i];
+
+                for (let k = 0; k < X.length; k++) {
+                    I[j][k] -= I[i][k] * x_ji;
+                    X[j][k] -= X[i][k] * x_ji;
+                }
+            }
+        }
+        return (I);
+    }
+
 }
 
 module.exports = Matrix;
